@@ -1,0 +1,24 @@
+{
+  "name": "js_event_emitter",
+  "version": "1.0.0",
+  "description": "A simple event emitter {javascrip}",
+  "main": "index.js",
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siggy-h/js_event_emitter.git"
+  },
+  "keywords": [
+    "javascript",
+    "event",
+    "emitter"
+  ],
+  "author": "s-hinds",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siggy-h/js_event_emitter/issues"
+  },
+  "homepage": "https://github.com/siggy-h/js_event_emitter#readme"
+}
