@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/siggy-h/js_event_emitter.git"
+    "url": "https://github.com/siggy-h/js_event_emitter.git"
   },
   "keywords": [
     "javascript",
