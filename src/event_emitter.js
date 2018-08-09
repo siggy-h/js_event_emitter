@@ -32,8 +32,17 @@ export default class EventEmitter {
      * ex: myEmitter.emit('event');
      * ex: myEmitter.emit('event', 'a', 'b');
      */
-    emit(eventName, args) { }
+    emit(eventName, args) {
+        // try callListeners()
+     }
 
+
+    // ???
+    async callListeners(listeners, args) {
+        listeners.forEach( fun => {
+            await fun.call(...args)
+        });
+    }
 
     /**
      * on()
