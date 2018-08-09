@@ -1,0 +1,24 @@
+{
+  "name": "js_event_emitter",
+  "version": "1.0.0",
+  "description": "exercise: event emitter in javascript",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "\"echo no tests yet\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siggy-h/js_event_emitter.git"
+  },
+  "keywords": [
+    "event",
+    "emitter",
+    "javascript"
+  ],
+  "author": "s-hinds",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siggy-h/js_event_emitter/issues"
+  },
+  "homepage": "https://github.com/siggy-h/js_event_emitter#readme"
+}
