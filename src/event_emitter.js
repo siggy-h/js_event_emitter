@@ -11,9 +11,10 @@ export default class EventEmitter {
     constructor() {
         this._eventMap = new Map()   // "eventName" -> Function[]
 
-        // this.emit = this.emit.bind(this)
+        this.emit = this.emit.bind(this)
+        this.callListeners = this.callListeners.bind(this)
         this.on = this.on.bind(this)
-        // this.once = this.emit.once(this)
+        this.once = this.once.bind(this)
         this.removeListener = this.removeListener.bind(this)
         this.removeAllListeners = this.removeAllListeners.bind(this)
         this.listeners = this.listeners.bind(this)
@@ -21,27 +22,35 @@ export default class EventEmitter {
 
     // Methods //
 
-    /** TODO
+    /**
      * emit()
      * Call to trigger a named event with any number of arguments.
      * @param {string} eventName - The name of the event to trigger
-     * @param {[...args]} args - Arguments to supply to the event callback
+     * @param {[...args]} args - Optional arguments to supply all listeners registered to an event
      *
      * @return {boolean} True if event had listeners, false otherwise.
      *
      * ex: myEmitter.emit('event');
      * ex: myEmitter.emit('event', 'a', 'b');
      */
-    emit(eventName, args) {
-        // try callListeners()
-     }
+    emit(eventName, ...args) {
+        const listeners = this._eventMap.get(eventName)
+        if (listeners) {
+            this.callListeners(listeners, ...args)
+            return true
+        } else {
+            return false
+        }
+    }
 
-
-    // ???
-    async callListeners(listeners, args) {
-        listeners.forEach( fun => {
-            await fun.call(...args)
-        });
+    /**
+     * callListeners()
+     * helper function to call each listener asynchronously
+     * @param {Function[]} listeners - array of listener functions
+     * @param {[...args]} args - Optional arguments to pass into all listener functions
+     */
+    async callListeners(listeners, ...args) {
+        listeners.map(async fun => fun(...args))
     }
 
     /**
@@ -62,8 +71,7 @@ export default class EventEmitter {
         }
     }
 
-
-    /** TODO
+    /**
      * once()
      * Call to register "listener" to a named event.
      * The "listener" will be called, at most, one time.
@@ -72,8 +80,18 @@ export default class EventEmitter {
      *
      * ex: myEmitter.on('event', () => {console.log('an event occurred!') });
      */
-    once(eventName, listener) { }
+    once(eventName, listener) {
 
+        const onceListener = (...args) => {
+            // remove this function from registered list
+            this.removeListener(eventName, onceListener)
+            // call actual listener
+            listener(...args)
+        }
+
+        // register the listener using the onceListener() wrapper
+        this.on(eventName, onceListener)
+    }
 
     /**
      * removeListener()
@@ -89,7 +107,6 @@ export default class EventEmitter {
             this._eventMap.set(eventName, listeners.filter((elm) => elm !== listener))
         }
     }
-
 
     /**
      * removeAllListeners()
