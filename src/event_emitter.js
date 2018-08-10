@@ -122,10 +122,10 @@ export default class EventEmitter {
 
     /**
      * listeners()
-     * for testing...
+     * helper function for testing...
      * Returns an array of listeners registered to the named event
      * @param {string} eventName - The name of the event
-     * @return {Function[] | false} - array of listeners registered to the event, or false if event does is not registered
+     * @return {Function[] | false} - array of listeners registered to the event, or false if event is not registered
      */
     listeners(eventName) {
         var listeners = this._eventMap.get(eventName)
