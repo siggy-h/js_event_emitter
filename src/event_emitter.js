@@ -50,7 +50,7 @@ export default class EventEmitter {
      * @param {[...args]} args - Optional arguments to pass into all listener functions
      */
     async callListeners(listeners, ...args) {
-        listeners.map(async fun => fun(...args))
+        listeners.map(async fun => await fun(...args))
     }
 
     /**
