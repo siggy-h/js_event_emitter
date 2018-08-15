@@ -18,7 +18,7 @@ describe("EventEmitter", () => {
 
     describe("on()", () => {
 
-      test("given an event name and function, it registers a function for the named event", () => {
+      test("given an event name and listener, it registers a listener for the named event", () => {
         myEmitter.on(testE1, fun1)
         const actual = myEmitter.listeners(testE1)
 
@@ -58,7 +58,6 @@ describe("EventEmitter", () => {
         myEmitter.removeListener(testE1, fun1)
 
         var actual2 = myEmitter.listeners(testE1)
-
         expect(actual2).not.toContain(fun1)
       })
 
@@ -68,14 +67,12 @@ describe("EventEmitter", () => {
 
         var actual = myEmitter.listeners(testE1)
         expect(actual).toHaveLength(2)
-
         expect(actual).toContain(fun1)
 
         myEmitter.removeListener(testE1, fun1)
 
         var actual2 = myEmitter.listeners(testE1)
         expect(actual2).toHaveLength(0)
-
         expect(actual2).not.toContain(fun1)
       })
 
@@ -102,8 +99,8 @@ describe("EventEmitter", () => {
 
     describe("callListeners()", () => {
       test("given an array of functions expect each function to be called", () => {
-        const callFunctionMock = jest.fn();
-        const callFunctionMock2 = jest.fn();
+        const callFunctionMock = jest.fn(fun1);
+        const callFunctionMock2 = jest.fn(fun2);
 
         myEmitter.callListeners([callFunctionMock, callFunctionMock2])
 
@@ -114,7 +111,7 @@ describe("EventEmitter", () => {
 
     describe("emit()", () => {
         test("given a registered namedEvent, expect emit to return true", () => {
-          const callFunctionMock = jest.fn();
+          const callFunctionMock = jest.fn(fun1);
           myEmitter.on(testE1, callFunctionMock)
           const result = myEmitter.emit(testE1)
           expect(result).toBe(true);
@@ -126,7 +123,7 @@ describe("EventEmitter", () => {
         })
 
         test("given a registered listener w/no-args, expect listener to have been called", () => {
-          const callFunctionMock = jest.fn();
+          const callFunctionMock = jest.fn(fun2);
           myEmitter.on(testE1, callFunctionMock)
           myEmitter.emit(testE1)
           expect(callFunctionMock).toBeCalled();
