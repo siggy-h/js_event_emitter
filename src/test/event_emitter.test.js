@@ -100,8 +100,32 @@ describe("EventEmitter", () => {
 
     })
 
-    // describe("callListeners()", () => {}
+    describe("callListeners()", () => {
+      test("given an array of functions expect each function to be called", () => {
+        const callFunctionMock = jest.fn();
+        const callFunctionMock2 = jest.fn();
+
+        myEmitter.callListeners([callFunctionMock, callFunctionMock2])
+
+        expect(callFunctionMock).toBeCalled();
+        expect(callFunctionMock2).toBeCalled();
+      })
+    })
+
     // describe("emit()", () => {}
     // describe("once()", () => {}
-
 })
+
+// describe('<Gallery />', () => {
+//   it('Expect sendMessageToParentWindow to be called on image change', () => {
+//     const sendEventToParentWindowMock = jest.fn();
+//     const onChangeImageMock = jest.fn(() => {
+//          sendEventToParentWindowMock();
+//     });
+
+//     const gallery = shallow(<Gallery images={imagesMockData} onChange={onChangeImageMock} />); // Passing the mocked onChangeImage as prop
+//     gallery.find('input#image-1').simulate('change');
+
+//     expect(sendEventToParentWindowMock).toBeCalled();
+//   });
+// }
